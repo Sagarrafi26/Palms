@@ -6,8 +6,12 @@ const Constants = {
   SEARCH: "Search",
   CLEAR: "Clear",
   ADD: "ADD",
-  EDIT: "EDIT"
+  EDIT: "EDIT",
 
+  BACK: "Back",
+  SAVE: "Save",
+  ACTIVE: "Active",
+  INACTIVE: "Inactive"
 }
 
 export default Constants;

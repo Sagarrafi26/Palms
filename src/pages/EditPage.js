@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Constants from '../constants/Constants'
-import Header from '../Components/Header'
+import Header from '../components/Header'
 
 import { Link } from 'react-router-dom'
 import  classNames  from 'classnames'
@@ -43,7 +43,7 @@ export const EditPage = () => {
 
         </div>
         <div>
-            DEACTIVE
+            {Constants.INACTIVE}
           </div>
         
         
@@ -55,15 +55,21 @@ export const EditPage = () => {
         </div>
 
         <div className='flex  justify-between  py-3'>
-        <div className='flex  w-1/6  justify-center  cursor-pointer main-w-[200%] relative  py-3   rounded-md bg-gray-400 '>
+        <div className='flex justify-center mb-5 mx-5'>
           <Link to="/">
-            <button>{Constants.BACK}</button>
+            <button
+              className='flex justify-center w-full sm:w-60 font-medium rounded-lg text-sm px-5 py-2 text-center border border-2 text-white bg-gradient-to-t from-gray-500 to-gray-600 hover:bg-gradient-to-b'>
+                {Constants.BACK}
+            </button>
             </Link>
         </div>
        
-        <div className='flex  w-1/6  justify-center   cursor-pointer main-w-[200%] relative  py-3   rounded-md bg-gray-400 '>
+        <div className='flex justify-center mb-5 mx-5'>
           <Link to="/">
-            <button>{Constants.SAVE}</button>
+            <button
+              className='flex justify-center w-full sm:w-60 font-medium rounded-lg text-sm px-5 py-2 text-center border border-2 text-white bg-gradient-to-t from-gray-500 to-gray-600 hover:bg-gradient-to-b'>
+                {Constants.SAVE}
+            </button>
             </Link>
         </div>
        
