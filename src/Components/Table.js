@@ -1,55 +1,53 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const Table = ({ data }) => {
+  const [selectedRow, setSelectedRow] = useState(null);
+  const tableRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (tableRef.current && !tableRef.current.contains(event.target)) {
+        setSelectedRow(null);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
+  const handleRowClick = (row) => {
+    setSelectedRow(row === selectedRow ? null : row);
+  };
+
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto" ref={tableRef}>
       <table className="min-w-full bg-white border border-gray-300">
         <thead>
-          <tr >
-            <th className=" border px-4 py-2">
-                <select><option value="">Select</option></select></th>
-            <th className=" border px-4 py-2"><select><option value="">ID</option></select></th>
-            <th className=" border px-4 py-2"><select><option value="">Company Name</option></select></th>
-            <th className=" border px-4 py-2"><select><option value="">Company Code </option></select></th>
-            <th className="border px-4 py-2"><select><option value="">Active Status</option></select></th>
+          <tr>
+            <th className="border px-4 py-2">Select</th>
+            <th className="border px-4 py-2">ID</th>
+            <th className="border px-4 py-2">Company Name</th>
+            <th className="border px-4 py-2">Company Code</th>
+            <th className="border px-4 py-2">Active Status</th>
+            <th className="border px-4 py-2">Actions</th>
           </tr>
         </thead>
         <tbody>
           {data.map((row, index) => (
-            <tr key={index}>
+            <tr key={index} className={selectedRow === row ? 'bg-blue-200' : ''} onClick={() => handleRowClick(row)}>
               <td className="border px-4 py-2">
-                <input type="checkbox" />
+               
               </td>
               <td className="border px-4 py-2">{row.id}</td>
               <td className="border px-4 py-2">{row.companyName}</td>
               <td className="border px-4 py-2">{row.companyCode}</td>
               <td className="border px-4 py-2">{row.active ? 'Active' : 'Inactive'}</td>
-              {/* <td className="border px-4 py-2">
-                <select className="border border-gray-300 rounded px-2 py-1">
-                  <option value="">{row.id}</option>
-                  {/* Add options dynamically if needed */}
-                {/* </select>
-              </td>
               <td className="border px-4 py-2">
-                <select className="border border-gray-300 rounded px-2 py-1">
-                  <option value="">{row.companyName}</option>
-                  {/* Add options dynamically if needed */}
-                {/* </select>
+                <button>Edit</button>
               </td>
-              <td className="border px-4 py-2">
-                <select className="border border-gray-300 rounded px-2 py-1">
-                  <option value="">{row.companyCode}</option> */}
-                  {/* Add options dynamically if needed */}
-                {/* </select>
-              </td>
-              <td className="border px-4 py-2">
-                <select className="border border-gray-300 rounded px-2 py-1">
-                  <option value="">{row.active ? 'Active' : 'Inactive'}</option>
-                  {/* Add options dynamically if needed */}
-                
-              {/* </td> */}
-      
-
             </tr>
           ))}
         </tbody>
