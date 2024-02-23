@@ -1,8 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
+import data from '../db.json';
 
-const Table = ({ data }) => {
+
+
+const Table = ({ data  }) => {
   const [selectedRow, setSelectedRow] = useState(null);
   const tableRef = useRef(null);
+
+ 
+  
+
+
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -32,11 +40,12 @@ const Table = ({ data }) => {
             <th className="border px-4 py-2">Company Name</th>
             <th className="border px-4 py-2">Company Code</th>
             <th className="border px-4 py-2">Active Status</th>
-            <th className="border px-4 py-2">Actions</th>
+           
+            
           </tr>
         </thead>
         <tbody>
-          {data.map((row, index) => (
+          {data && data.map((row, index) => (
             <tr key={index} className={selectedRow === row ? 'bg-blue-200' : ''} onClick={() => handleRowClick(row)}>
               <td className="border px-4 py-2">
                
@@ -44,10 +53,16 @@ const Table = ({ data }) => {
               <td className="border px-4 py-2">{row.id}</td>
               <td className="border px-4 py-2">{row.companyName}</td>
               <td className="border px-4 py-2">{row.companyCode}</td>
-              <td className="border px-4 py-2">{row.active ? 'Active' : 'Inactive'}</td>
-              <td className="border px-4 py-2">
-                <button>Edit</button>
-              </td>
+              <td className="border px-4 py-2">{row.active}</td>
+              {/* {Object.values(row).map((value, i) => (
+                <td key={i} className="border px-4 py-2">{value}</td>
+              ))}
+              */}
+
+            
+
+              
+              
             </tr>
           ))}
         </tbody>
