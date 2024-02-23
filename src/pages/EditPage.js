@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Constants from '../constants/Constants'
-import Header from '../components/Header'
+import Header from '../Components/Header'
 
 import { Link } from 'react-router-dom'
 import  classNames  from 'classnames'
@@ -8,7 +8,25 @@ import  classNames  from 'classnames'
 
 export const EditPage = () => {
     const [isToggled, setIsToggled] = useState(false);
+    const [companyData, setCompanyData] = useState({
+        id: '',
+        companyName: '',
+        companyCode: '',
+        active: true // Assuming default active status is true
+      });
 
+      const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setCompanyData({ ...companyData, [name]: value });
+      };
+    
+      // Function to handle form submission
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        // Add logic to save/update company data
+        console.log('Company Data:', companyData);
+      };
+     
   
     
   return (
@@ -20,7 +38,8 @@ export const EditPage = () => {
           
          
             <label>
-            <input type="text"  className='mx-6  border-2 rounded-md px-5 py-0 flex' />
+            <input type="text"  name="companyName" value={companyData.companyName} onChange={handleInputChange}
+            className='mx-6  border-2 rounded-md px-5 py-0 flex' />
             </label>
          
         </div>
@@ -28,7 +47,8 @@ export const EditPage = () => {
         <div className=' flex  '>
           <p className='w-[100%]'> {Constants.COMPANY_CODE} </p> 
           <label>
-            <input type="text"  className='mx-6  border-2 rounded-md px-5 py-0 flex' />
+            <input type="text" name="companyCode" value={companyData.companyCode} onChange={handleInputChange}
+             className='mx-6  border-2 rounded-md px-5 py-0 flex' />
             </label>
         </div>
         <div 
@@ -43,7 +63,7 @@ export const EditPage = () => {
 
         </div>
         <div>
-            {Constants.INACTIVE}
+            DEACTIVE
           </div>
         
         
@@ -55,21 +75,15 @@ export const EditPage = () => {
         </div>
 
         <div className='flex  justify-between  py-3'>
-        <div className='flex justify-center mb-5 mx-5'>
+        <div className='flex  w-1/6  justify-center  cursor-pointer main-w-[200%] relative  py-3   rounded-md bg-gray-400 '>
           <Link to="/">
-            <button
-              className='flex justify-center w-full sm:w-60 font-medium rounded-lg text-sm px-5 py-2 text-center border border-2 text-white bg-gradient-to-t from-gray-500 to-gray-600 hover:bg-gradient-to-b'>
-                {Constants.BACK}
-            </button>
+            <button>{Constants.BACK}</button>
             </Link>
         </div>
        
-        <div className='flex justify-center mb-5 mx-5'>
+        <div className='flex  w-1/6  justify-center   cursor-pointer main-w-[200%] relative  py-3   rounded-md bg-gray-400 '>
           <Link to="/">
-            <button
-              className='flex justify-center w-full sm:w-60 font-medium rounded-lg text-sm px-5 py-2 text-center border border-2 text-white bg-gradient-to-t from-gray-500 to-gray-600 hover:bg-gradient-to-b'>
-                {Constants.SAVE}
-            </button>
+            <button onClick={handleSubmit}>{Constants.SAVE}</button>
             </Link>
         </div>
        

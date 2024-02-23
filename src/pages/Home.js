@@ -4,25 +4,37 @@ import Dropdown from '../Components/Dropdown'
 import Dropdown2 from '../Components/Dropdown2'
 import Constants from '../constants/Constants';
 import { Link } from 'react-router-dom';
+import data from '../db.json'
+import React,{ useEffect, useState } from 'react';
 
 function Home () {
 
-  const data = [
-    { id: 1, companyName: 'Company A', companyCode: 'A001', active: true },
-    { id: 2, companyName: 'Company B', companyCode: 'B002', active: false },
-    { id: 3, companyName: 'Company C', companyCode: 'C003', active: true },
-  ];
+  // const data = [
+  //   { id: 1, companyName: 'Company A', companyCode: 'A001', active: true },
+  //   { id: 2, companyName: 'Company B', companyCode: 'B002', active: false },
+  //   { id: 3, companyName: 'Company C', companyCode: 'C003', active: true },
+  // ];
 
+  
+  // const [companyData, setCompanyData] = useState([]);
+ 
+  // useEffect(()=>{
+  //   fetch('http://localhost:8080/0')
+  //   .then(res=>res.json())
+  //   .then(data=>{
+  //     setCompanyData(data.users)
+  //   })
+  // },[])
   return (
     <div className="Home">
       <Header pageTitle={Constants.COMPANY_MASTER}/>
 
-      <div className='flex w-[100%] py-2'>
-        <div className=' flex justify-center '>
+      <div className='flex w-[100%]   py-2'>
+        <div className=' flex justify-center  '>
           <p className='w-[100%] py-2'> {Constants.COMPANY_NAME} </p> 
 
-          <div className=' mx-6 rounded-1-md px-5 py-0 flex me-7 ' >
-            <Dropdown />
+          <div className=' mx-4 rounded-1-md px-5 py-0 flex me-7 ' >
+            <Dropdown/>
           </div>
         </div>
 
