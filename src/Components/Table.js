@@ -1,17 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import data from '../db.json';
 
 
 
-const Table = ({ data  }) => {
-  const [selectedRow, setSelectedRow] = useState(null);
-  const tableRef = useRef(null);
 
- 
+const Table = ({data }) => {
   
 
+  const [selectedRow, setSelectedRow] = useState(null);
 
-
+  const tableRef = useRef(null);
+ 
+ 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (tableRef.current && !tableRef.current.contains(event.target)) {
@@ -26,7 +25,7 @@ const Table = ({ data  }) => {
     };
   }, []);
 
-  const handleRowClick = (row) => {
+  const onRowClick = (row) => {
     setSelectedRow(row === selectedRow ? null : row);
   };
 
@@ -35,25 +34,25 @@ const Table = ({ data  }) => {
       <table className="min-w-full bg-white border border-gray-300">
         <thead>
           <tr>
-            <th className="border px-4 py-2">Select</th>
-            <th className="border px-4 py-2">ID</th>
-            <th className="border px-4 py-2">Company Name</th>
-            <th className="border px-4 py-2">Company Code</th>
-            <th className="border px-4 py-2">Active Status</th>
-           
-            
+            <th className="border px-4 py-2">StateID</th>
+            <th className="border px-4 py-2">CityID</th>
+            <th className="border px-4 py-2">CityName</th>
+            <th className="border px-4 py-2">CityCode</th>
+            <th className="border px-4 py-2">CreatedBy</th>
+            <th className="border px-4 py-2">CreatedDate</th>
           </tr>
         </thead>
         <tbody>
           {data && data.map((row, index) => (
-            <tr key={index} className={selectedRow === row ? 'bg-blue-200' : ''} onClick={() => handleRowClick(row)}>
+            <tr key={index} className={selectedRow === row ? 'bg-blue-200' : ''} onClick={() => onRowClick(row)}>
               <td className="border px-4 py-2">
-               
+               {row.stateId}
               </td>
-              <td className="border px-4 py-2">{row.id}</td>
-              <td className="border px-4 py-2">{row.companyName}</td>
-              <td className="border px-4 py-2">{row.companyCode}</td>
+              <td className="border px-4 py-2">{row.cityId}</td>
+              <td className="border px-4 py-2">{row.cityName}</td>
+              <td className="border px-4 py-2">{row.cityCode}</td>
               <td className="border px-4 py-2">{row.active}</td>
+              <td className="border px-4 py-2">{row.date}</td>
               {/* {Object.values(row).map((value, i) => (
                 <td key={i} className="border px-4 py-2">{value}</td>
               ))}
