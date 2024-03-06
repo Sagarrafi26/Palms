@@ -19,10 +19,12 @@ const Home = () => {
       .then(data => {
         // Transform the data to match the expected properties
         const transformedData = data.data.map(item => ({
-          id: item.CityID,
-          companyName: item.CityName,
-          companyCode: item.CityCode,
-          active: item.CreatedBy !== null // Example condition for active status
+          stateId:item.StateID,
+          cityId: item.CityID,
+          cityName: item.CityName,
+          cityCode: item.CityCode,
+          active: item.CreatedBy,  
+          date:item.CreatedDate
         }));
         setCompanyData(transformedData);
       })

@@ -1,60 +1,121 @@
-import React from 'react'
-import Constants from '../constants/Constants'
-import Header from '../components/Header'
+import React, { useState } from "react";
+import Constants from "../constants/Constants";
+import Header from "../Components/Header";
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom";
 
 export const Addpage = () => {
+  const [cityName, setCityName] = useState("");
+  const [cityCode, setCityCode] = useState("");
+  const [stateId, setStateId] = useState("");
+  const [cityId, setCityId] = useState(""); // New state variable for CityID
+  const [createdBy, setCreatedBy] = useState(""); // New state variable for CreatedBy
+
+  const navigate = useNavigate();
+
+  const handleSave = async () => {
+   
+    // Prepare the data to send to the backend
+    const newData = {
+      cityName: cityName,
+      cityCode: cityCode,
+      stateId: stateId,
+    };
+    console.log("something?", newData);
+    try {
+      // Send a POST request to your backend server to save the new data
+      const response = await fetch("http://localhost:8081/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newData),
+      });
+
+      if (response.ok) {
+        // If the data was successfully saved, reload the page to fetch updated data
+        navigate.push("/");
+      } else {
+        // Handle error response
+        console.error("Failed to save data:", response.statusText);
+      }
+    } catch (error) {
+      // Handle fetch error
+      console.error("Error saving data:", error);
+    }
+  };
+
   return (
     <div>
-      <Header pageTitle={Constants.ADD_PAGE}/>
-      
-      <div className='flex py-5'>
-        <div className=' flex  '>
-          <p className='w-[100%]'> {Constants.COMPANY_NAME} </p> 
-          
-            <label>
-              <input type="text"  className='mx-6  border-2 rounded-md px-5 py-0 flex' />
-            </label>
-          
-        </div>
-            
-        <div className=' flex  '>
-          <p className='w-[100%]'> {Constants.COMPANY_CODE} </p> 
+      <Header pageTitle={Constants.ADD_PAGE} />
+      <div className="flex py-5">
+        <div className=" flex  ">
+          <p className="w-[100%]"> {Constants.COMPANY_NAME} </p>
+
           <label>
-            <input type="text"  className='mx-6  border-2 rounded-md px-5 py-0 flex' />
-            </label>
+            <input
+              type="text"
+              value={cityName}
+              onChange={(e) => setCityName(e.target.value)}
+              className="mx-6  border-2 rounded-md px-5 py-0 flex"
+            />
+          </label>
         </div>
-                  
-        <div className=' flex '>
+        
+        <div className=" flex  ">
+          <p className=""> {Constants.COMPANY_CODE} </p>
+          <label>
+            <input
+              type="text"
+              value={cityCode}
+              onChange={(e) => setCityCode(e.target.value)}
+              className="mx-6  border-2 rounded-md px-5 py-0 flex items-start"
+            />
+          </label>
+        
+        </div>
+
+        <div className=" flex  ">
+          <p className="my-0"> {Constants.COMPANY_STATEID} </p>
+          <label>
+            <input
+              type="text"
+              value={stateId}
+              onChange={(e) => setStateId(e.target.value)}
+              className="mx-6 my-0  border-2 rounded-md px-5 py-0 flex"
+            />
+          </label>
+          
+        </div>
+        
+        {/* <div className=' flex '>
           <p className='mx-8'> {Constants.ACTIVE_STATUS} </p>
           <label>
-            <input type="text"  className='mx-6  border-2 rounded-md px-5 py-0 flex' />
+            <input type="text"  value={activeStatus}
+              onChange={(e) => setActiveStatus(e.target.value)} className='mx-6  border-2 rounded-md px-5 py-0 flex' />
             </label>
-        </div>
+        </div> */}
       </div>
+
+     
 
       <div>
-          <hr></hr>
+        <hr></hr>
       </div>
 
-      <div className='flex  justify-between  py-3'>
-      <div className='flex justify-center mb-5 mx-5'>
-        <button
-          className='flex justify-center w-full sm:w-60 font-medium rounded-lg text-sm px-5 py-2 text-center border border-2 text-white bg-gradient-to-t from-gray-500 to-gray-600 hover:bg-gradient-to-b'>
-            {Constants.BACK}
-        </button>
-      </div>
-      
-      <div className='flex justify-center mb-5 mx-5'>
-          <button
-            className='flex justify-center w-full sm:w-60 font-medium rounded-lg text-sm px-5 py-2 text-center border border-2 text-white bg-gradient-to-t from-gray-500 to-gray-600 hover:bg-gradient-to-b'>
-              {Constants.SAVE}
-          </button>
-      </div>
-      
+      <div className="flex  justify-between  py-3">
+        <div className="flex  w-1/6  justify-center  cursor-pointer main-w-[200%] relative  py-3   rounded-md bg-gray-400 ">
+          <Link to="/">
+            <button>{Constants.BACK}</button>
+          </Link>
+        </div>
 
+        <div className="flex  w-1/6  justify-center   cursor-pointer main-w-[200%] relative  py-3   rounded-md bg-gray-400 ">
+          <Link to="/">
+          <button onClick={handleSave}>{Constants.SAVE}</button>
+          </Link>
+        </div>
       </div>
     </div>
-  )
-}
+  );
+};
