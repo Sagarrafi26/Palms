@@ -3,10 +3,8 @@ const sql = require('mssql/msnodesqlv8');
 const cors = require('cors');
 
 const app = express();
-app.use(cors());
-app.use(express.json()); // Add this line to parse JSON request bodies
 const port = 8081;
-
+ 
 
 const config = {
   server: 'TECHNO-511\\SQLDEV2019',
@@ -33,11 +31,12 @@ app.get('/test', async (req, res) => {
     });
     pool.close();
   } catch (error) {
-    console.error('Error fetching data:', error);
-    res.status(500).json({ error: 'Error fetching data' });
+      console.error('Error fetching data:', error);
+      res.status(500).json({ error: 'Error fetching data' });
+  } finally {
+      sql.close();
   }
 });
-
 app.post('/add', async (req, res) => {
   const { cityName, cityCode, stateId } = req.body;
   const createdBy = 1;
@@ -83,8 +82,7 @@ app.put('/update/:cityId', async (req, res) => {
   }
 });
 
-
-
+ 
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
