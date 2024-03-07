@@ -4,7 +4,9 @@ const cors = require('cors');
 
 const app = express();
 const port = 8081;
- 
+app.use(cors());
+app.use(express.json()); // Add this line to parse JSON request bodies
+
 
 const config = {
   server: 'TECHNO-511\\SQLDEV2019',
