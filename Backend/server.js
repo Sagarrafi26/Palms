@@ -63,9 +63,9 @@ app.post('/add', async (req, res) => {
     res.status(500).json({ error: 'Error saving data' });
   }
 });
-app.put('/update/:cityId', async (req, res) => {
-  const { cityName, cityCode, stateId } = req.body;
-  const cityId = req.params.cityId;
+app.put('/update', async (req, res) => {
+  const { cityName, cityCode, stateId,cityId } = req.body;
+  console.log(cityCode)
 
   try {
     const pool = await new sql.ConnectionPool(config).connect();
@@ -75,7 +75,7 @@ app.put('/update/:cityId', async (req, res) => {
       .input('stateId', sql.Int, stateId)
       .input('cityId', sql.Int, cityId)
       .query('UPDATE City SET CityName = @cityName, CityCode = @cityCode, StateID = @stateId WHERE CityID = @cityId');
-
+  
     res.status(200).json({ success: true });
     pool.close();
   } catch (error) {
