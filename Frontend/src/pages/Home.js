@@ -3,36 +3,40 @@ import Table from "../Components/Table";
 import Dropdown from "../Components/Dropdown";
 import Dropdown2 from "../Components/Dropdown2";
 import Constants from "../constants/Constants";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import EditPage from "./EditPage";
 
 const Home = () => {
+  const navigate = useNavigate();
   const [companyData, setCompanyData] = useState([]); // Initialize state with data
   const [showEditPage, setShowEditPage] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
 
+  const data = [
+    { stateId: 1, cityId: 1, cityName: "sfvd", cityCode: "ND", createdBy: 1, createdDate: "2012-08-31 17:21:50.240"},
+    { stateId: 1, cityId: 2, cityName: "sfvsfsfsd", cityCode: "NDSEDF", createdBy: 1, createdDate: "2012-10-31 17:21:50.240" },
+    { stateId: 1, cityId: 3, cityName: "fsvdfsfvsfsfsd", cityCode: "SDENDSEDF", createdBy: 1, createdDate: "2012-10-31 17:21:90.240" },
+  ];
+
   useEffect(() => {
     // Fetch company data from the backend when the component mounts
-    fetch('http://localhost:8081/test') // Adjust the URL as needed
-      .then(response => response.json())
-      .then(data => {
-        // Transform the data to match the expected properties
-        const transformedData = data.data.map(item => ({
-          stateId:item.StateID,
-          cityId: item.CityID,
-          cityName: item.CityName,
-          cityCode: item.CityCode,
-          active: item.CreatedBy,  
-          date:item.CreatedDate
-        }));
-        setCompanyData(transformedData);
-      })
-      .catch(error => console.error('Error fetching company data:', error));
+    // fetch('http://localhost:8081/test') // Adjust the URL as needed
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     // Transform the data to match the expected properties
+    //     const transformedData = data.data.map(item => ({
+    //       stateId:item.StateID,
+    //       cityId: item.CityID,
+    //       cityName: item.CityName,
+    //       cityCode: item.CityCode,
+    //       active: item.CreatedBy,  
+    //       date:item.CreatedDate
+    //     }));
+    //     setCompanyData(transformedData);
+    //   })
+    //   .catch(error => console.error('Error fetching company data:', error));
   }, []);
-
-
-  
 
   // Function to handle saving/updating company data
   const handleSave = (updatedData) => {
@@ -44,9 +48,14 @@ const Home = () => {
 
     setShowEditPage(false);
   };
-  const handleRowClick = (row) => {
-    setSelectedRow(row);
-    setShowEditPage(true);
+  const handleRowClick = (rowData) => {
+    setSelectedRow(rowData);
+  };
+
+  const handleEditButtonClick = () => {
+    if(selectedRow) {
+      navigate(`/company/edit`, {state: {row: selectedRow}});
+    }
   };
 
   return (
@@ -83,17 +92,17 @@ const Home = () => {
           </Link>
         </div>
         <div className="flex w-[220px]  justify-center   cursor-pointer   mx-[2px] py-2  rounded-md bg-gray-400 ">
-          <Link to="/company/edit">
-            <button>{Constants.EDIT}</button>
-          </Link>
+          <button onClick={handleEditButtonClick}>{Constants.EDIT}</button>
         </div>
       </div>
       <div className="container mx-auto pt-8">
         {/* <Table data={companyData} onSave={handleSave} /> */}
-        {showEditPage ? (
+        {/* {showEditPage ? (
           <EditPage onSave={handleSave} selectedRow={selectedRow} />
         ) : (
-          <Table data={companyData} onRowClick={handleRowClick} />)}
+          <Table data={data} onRowSelect={(row) => setSelectedRow(row)} />)} */}
+
+        <Table data={data} onRowClick={handleRowClick}/>
       </div>
     </div>
   );

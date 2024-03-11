@@ -12,8 +12,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path={process.env.PUBLIC_URL + "/"} element={<Home />} />
-        <Route path="/company/add" Component={Addpage}/>
-        <Route path="/company/edit" Component={EditPage}/>
+        <Route path="/company/add" element={<Addpage />}/>
+        <Route path="/company/edit" element={<EditPage />}/>
       </Routes>
     </BrowserRouter>
   );

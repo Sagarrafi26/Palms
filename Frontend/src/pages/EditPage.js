@@ -2,18 +2,26 @@ import React, { useEffect, useState } from 'react'
 import Constants from '../constants/Constants'
 import Header from '../Components/Header'
 
-import { Link } from 'react-router-dom'
-import classNames from 'classnames'
+import { Link, useLocation } from 'react-router-dom'
 
-
-const EditPage = ({ onSave,selectedRow }) => {
-    console.log("Hi", onSave);
+const EditPage = () => {
+    const location = useLocation();
     const [companyData, setCompanyData] = useState({
-        cityId: selectedRow?.cityId || '',
-        cityName: selectedRow?.cityName || '',
-        cityCode: selectedRow?.cityCode || '',
-        stateId: selectedRow?.stateId || ''
+        cityId: '',
+        cityName: '',
+        cityCode: '',
+        stateId: ''
     });
+
+    // Update state when selectedRow prop changes
+    useEffect(() => {
+        setCompanyData({
+            cityId: location.state.row.cityId,
+            cityName: location.state.row.cityName,
+            cityCode: location.state.row.cityCode,
+            stateId: location.state.row.stateId
+        });
+    }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -39,7 +47,7 @@ const EditPage = ({ onSave,selectedRow }) => {
             // Handle response if needed
             console.log('Update successful:', data);
             // Call the onSave function to update the state in the parent component
-             onSave(companyData);
+            //  onSave(companyData);
         })
         .catch(error => {
             console.error('Error updating data:', error);
