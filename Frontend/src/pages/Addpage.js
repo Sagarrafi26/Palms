@@ -8,11 +8,10 @@ export const Addpage = () => {
   const [cityName, setCityName] = useState("");
   const [cityCode, setCityCode] = useState("");
   const [stateId, setStateId] = useState("");
-  
+
   const navigate = useNavigate();
 
   const handleSave = async () => {
-   
     // Prepare the data to send to the backend
     const newData = {
       cityName: cityName,
@@ -59,7 +58,7 @@ export const Addpage = () => {
             />
           </label>
         </div>
-        
+
         <div className=" flex  ">
           <p className=""> {Constants.COMPANY_CODE} </p>
           <label>
@@ -70,7 +69,6 @@ export const Addpage = () => {
               className="mx-6  border-2 rounded-md px-5 py-0 flex items-start"
             />
           </label>
-        
         </div>
 
         <div className=" flex  ">
@@ -83,19 +81,8 @@ export const Addpage = () => {
               className="mx-6 my-0  border-2 rounded-md px-5 py-0 flex"
             />
           </label>
-          
         </div>
-        
-        {/* <div className=' flex '>
-          <p className='mx-8'> {Constants.ACTIVE_STATUS} </p>
-          <label>
-            <input type="text"  value={activeStatus}
-              onChange={(e) => setActiveStatus(e.target.value)} className='mx-6  border-2 rounded-md px-5 py-0 flex' />
-            </label>
-        </div> */}
       </div>
-
-     
 
       <div>
         <hr></hr>
@@ -110,7 +97,7 @@ export const Addpage = () => {
 
         <div className="flex  w-1/6  justify-center   cursor-pointer main-w-[200%] relative  py-3   rounded-md bg-gray-400 ">
           <Link to="/">
-          <button onClick={handleSave}>{Constants.SAVE}</button>
+            <button onClick={handleSave}>{Constants.SAVE}</button>
           </Link>
         </div>
       </div>

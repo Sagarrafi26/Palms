@@ -15,7 +15,7 @@ const EditPage = () => {
     stateId: "",
   });
 
-  // Update state when selectedRow prop changes
+
   useEffect(() => {
     setCompanyData({
       cityId: location.state.row.cityId,
@@ -26,20 +26,13 @@ const EditPage = () => {
   }, []);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setCompanyData({ ...companyData, [name]: value });
+    e.preventDefault();
+    setCompanyData({ ...companyData, [e.target.name]: e.target.value });
   };
-  // const handleInputChange = (e) => {
-  //     const { name, value } = e.target;
-  //     setCompanyData((prevData) => ({
-  //         ...prevData,
-  //         [name]: value
-  //     }));
-  // };
 
   console.log("CompanyData -->", companyData);
   const handleSubmit = async () => {
-   
+    console.log("Submitting form with data:", companyData);
     try {
       const response = await fetch("http://localhost:8081/update", {
         method: "PUT",
@@ -50,6 +43,7 @@ const EditPage = () => {
       });
       if (response.ok) {
         // If the data was successfully saved, reload the page to fetch updated data
+
         navigate.push("/");
       } else {
         // Handle error response
@@ -59,12 +53,13 @@ const EditPage = () => {
       // Handle fetch error
       console.error("Error saving data:", error);
     }
+    console.log("Submitting form with data:", companyData);
   };
 
   return (
     <div>
       <Header pageTitle={Constants.EDIT_PAGE} />
-      <form onSubmit={handleSubmit}>
+      <form>
         <div className="flex py-5">
           <div className=" flex  ">
             <p className="w-[100%]"> {Constants.COMPANY_NAME} </p>
@@ -92,18 +87,7 @@ const EditPage = () => {
               />
             </label>
           </div>
-          {/* <div
-                        onClick={() => setIsToggled(!isToggled)}
-                        className={classNames('flex  w-20 h-10 bg-gray-600 m-0 my-0 rounded-full', {
-                            'bg-green-500': isToggled,
-                        })}>
-                        <span className={classNames('h-10 w-10 bg-white rounded-full', {
-                            "ml-10": isToggled,
-                        })} />
-                    </div>
-                    <div>
-                        DEACTIVE
-                    </div> */}
+
           <div className=" flex  ">
             <p className="w-[100%]"> {Constants.COMPANY_STATEID} </p>
             <label>
@@ -131,7 +115,7 @@ const EditPage = () => {
 
           <div className="flex  w-1/6  justify-center   cursor-pointer main-w-[200%] relative  py-3   rounded-md bg-gray-400 ">
             <Link to="/">
-              <button type="submit">{Constants.SAVE}</button>
+              <button onClick={handleSubmit}>{Constants.SAVE}</button>
             </Link>
           </div>
         </div>

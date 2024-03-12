@@ -10,11 +10,11 @@ import EditPage from "./EditPage";
  
 const Home = () => {
   const navigate = useNavigate();
-  const [companyData, setCompanyData] = useState([]); // Initialize state with data
+  const [companyData, setCompanyData] = useState([]); 
   const [showEditPage, setShowEditPage] = useState(false);
   const [selectedRow, setSelectedRow] = useState([]);
   const [filteredData, setFilteredData] = useState([]); // State to store filtered data
-  const [selectedCity, setSelectedCity] = useState(null); // State to store selected city
+  const [selectedCity, setSelectedCity] = useState(null); 
  
  
  
@@ -76,11 +76,7 @@ const Home = () => {
     if(selectedRow) {
       navigate(`/company/edit`, {state: {row: selectedRow}});
     }
-     
-  // const handleEditButtonClick = () => {
-  //   setShowEditPage(true); // Show EditPage component when "Edit" button is clicked
-  // };
-
+ 
 }
   return (
     <div className="Home">
@@ -120,10 +116,7 @@ const Home = () => {
         </div>
       </div>
       <div className="container mx-auto pt-8">
-        {/* <Table data={companyData} onSave={handleSave} /> */}
-        {/* {showEditPage && 
-          <EditPage onSave={handleSave} selectedRow={selectedRow} />
-        } */}
+       
         {showEditPage && 
         <EditPage handleSave={handleSave} />
       }
