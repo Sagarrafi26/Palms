@@ -9,7 +9,7 @@ app.use(express.json()); // Add this line to parse JSON request bodies
 
 
 const config = {
-  server: 'TECHNO-404\\SQLDEV19',
+  server: 'TECHNO-511\\SQLDEV2019',
   database: 'PALMS-9.1',
   user: 'sa',
   password: 'techno-123',
@@ -43,7 +43,7 @@ app.listen(port, () => {
 app.get('/data', getData);
 app.post('/add', addCity);
 app.put('/update', updateCity);
-
+app.delete('/delete',deleteCity);
 // Route Handlers
 async function getData(req, res) {
   try {
@@ -93,6 +93,22 @@ async function updateCity(req, res) {
   } catch (error) {
     console.error('Error updating data:', error);
     res.status(500).json({ error: 'Error updating data' });
+  }
+}
+
+
+async function deleteCity(req, res) {
+  const {cityId}=req.body;
+
+  try {
+    await pool.request()
+      .input('cityId', sql.Int, cityId)
+      .query('DELETE FROM City WHERE CityID = @cityId');
+
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.error('Error deleting data:', error);
+    res.status(500).json({ error: 'Error deleting data' });
   }
 }
 

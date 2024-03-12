@@ -14,8 +14,9 @@ const Constants = {
   ADD: "ADD",
   EDIT: "EDIT",
   BACK:"Back",
-  SAVE:"Save"
-
+  SAVE:"Save",
+  DELETE:"Delete"
+  
 
 
 }

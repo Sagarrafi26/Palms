@@ -62,6 +62,25 @@ const Home = () => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      await fetch('http://localhost:8081/delete', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ cityId: selectedRow.cityId })
+      });
+      // Remove the deleted row from the state
+      setCompanyData(companyData.filter(city => city.cityId !== selectedRow.cityId));
+      // Clear the selected row state
+      setSelectedRow([]);
+    } catch (error) {
+      console.error('Error deleting city:', error);
+    }
+  };
+  
+
   return (
     <div className="Home">
       <Header pageTitle={Constants.COMPANY_MASTER} />
@@ -95,14 +114,19 @@ const Home = () => {
       </div>
 
       <div className="flex text-end justify-end  py-3">
-        <div className="flex  w-[220px]  justify-center  cursor-pointer  mx-20 py-3   rounded-md bg-gray-400 ">
+        <div className="flex  w-[220px]  justify-center  cursor-pointer  mx-10 py-3   rounded-md bg-gray-400 ">
           <Link to="/company/add">
             <button>{Constants.ADD}</button>
           </Link>
         </div>
-        <div className="flex w-[220px]  justify-center   cursor-pointer   mx-[2px] py-2  rounded-md bg-gray-400 ">
+        <div className="flex w-[220px]  justify-center   cursor-pointer    py-2 mx-10 rounded-md bg-gray-400 ">
           <button onClick={handleEditButtonClick}>{Constants.EDIT}</button>
         </div>
+         
+        <div className="flex w-[220px]  justify-center   cursor-pointer    py-2 mx-10 rounded-md bg-gray-400 ">
+          <button onClick={handleDelete} >{Constants.DELETE}</button>
+        </div>
+
       </div>
 
       <div className="container mx-auto pt-8">
