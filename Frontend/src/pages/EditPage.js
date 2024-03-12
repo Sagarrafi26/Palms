@@ -15,7 +15,7 @@ const EditPage = () => {
     stateId: "",
   });
 
-  // Update state when selectedRow prop changes
+
   useEffect(() => {
     if (location.state && location.state.row) {
       setCompanyData({
@@ -53,6 +53,7 @@ const EditPage = () => {
     } catch (error) {
       console.error("Error saving data:", error);
     }
+    console.log("Submitting form with data:", companyData);
   };
 
   return (
@@ -115,7 +116,7 @@ const EditPage = () => {
           <button onClick={handleSubmit}>{Constants.SAVE}</button>
         </div>
       </div>
-      
+
       </form>
     </div>
   );

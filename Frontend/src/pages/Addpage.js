@@ -7,7 +7,7 @@ export const Addpage = () => {
   const [cityName, setCityName] = useState("");
   const [cityCode, setCityCode] = useState("");
   const [stateId, setStateId] = useState("");
-  
+
   const navigate = useNavigate();
 
   const handleSave = async () => {
@@ -55,7 +55,7 @@ export const Addpage = () => {
             />
           </label>
         </div>
-        
+
         <div className=" flex  ">
           <p className=""> {Constants.COMPANY_CODE} </p>
           <label>
@@ -94,7 +94,7 @@ export const Addpage = () => {
 
         <div className="flex  w-1/6  justify-center   cursor-pointer main-w-[200%] relative  py-3   rounded-md bg-gray-400 ">
           <Link to="/">
-          <button onClick={handleSave}>{Constants.SAVE}</button>
+            <button onClick={handleSave}>{Constants.SAVE}</button>
           </Link>
         </div>
       </div>
