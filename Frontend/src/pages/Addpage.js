@@ -1,8 +1,7 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Constants from "../constants/Constants";
 import Header from "../Components/Header";
-
-import { Link, useNavigate } from "react-router-dom";
 
 export const Addpage = () => {
   const [cityName, setCityName] = useState("");
@@ -12,13 +11,14 @@ export const Addpage = () => {
   const navigate = useNavigate();
 
   const handleSave = async () => {
+  
     // Prepare the data to send to the backend
     const newData = {
       cityName: cityName,
       cityCode: cityCode,
       stateId: stateId,
     };
-    console.log("something?", newData);
+    console.log(newData);
     try {
       // Send a POST request to your backend server to save the new data
       const response = await fetch("http://localhost:8081/add", {
@@ -30,14 +30,11 @@ export const Addpage = () => {
       });
 
       if (response.ok) {
-        // If the data was successfully saved, reload the page to fetch updated data
-        navigate.push("/");
+        navigate("/");
       } else {
-        // Handle error response
         console.error("Failed to save data:", response.statusText);
       }
     } catch (error) {
-      // Handle fetch error
       console.error("Error saving data:", error);
     }
   };
@@ -101,6 +98,7 @@ export const Addpage = () => {
           </Link>
         </div>
       </div>
+
     </div>
   );
 };

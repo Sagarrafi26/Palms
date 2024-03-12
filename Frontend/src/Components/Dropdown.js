@@ -1,18 +1,14 @@
-
-
 import React, { useState, useEffect } from 'react';
 
 const Dropdown = ({ selectedCity,setSelectedCity}) => {
   const [isOpen, setIsOpen] = useState(false);
-  //  const [selectedCity, setSelectedCity] = useState();
   const [cities, setCities] = useState([]);
 
   useEffect(() => {
     // Fetch city data from the backend when the component mounts
-    fetch('http://localhost:8081/test') // Adjust the URL as needed
+    fetch('http://localhost:8081/data')
       .then(response => response.json())
       .then(data => {
-        // Transform the data to extract city names
         const cityNames = data.data.map(item => item.CityName);
         setCities(cityNames);
       })
@@ -25,12 +21,9 @@ const Dropdown = ({ selectedCity,setSelectedCity}) => {
 
   const handleCitySelect = (city) => {
     setSelectedCity(city);
-    toggleDropdown(); // Close dropdown after selection
+    toggleDropdown();
     
   };
-  useEffect(() => {
-    console.log(selectedCity); // Log the selected city after it's updated
-  }, [selectedCity]);
 
   return (
     <div className="relative inline-block">

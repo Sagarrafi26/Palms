@@ -1,10 +1,6 @@
+import React, { useState } from 'react';
 
-import React, { useState, useEffect, useRef } from 'react';
-
-
-const Table = ({data,onRowClick }) => {
-  
-
+const Table = ({ data, onRowClick }) => {
   const [selectedRow, setSelectedRow] = useState(null);
 
   const handleRowClick = (row) => {
@@ -48,17 +44,8 @@ const Table = ({data,onRowClick }) => {
               <td className="border px-4 py-2">{row.cityId}</td>
               <td className="border px-4 py-2">{row.cityName}</td>
               <td className="border px-4 py-2">{row.cityCode}</td>
-              <td className="border px-4 py-2">{row.active}</td>
-              <td className="border px-4 py-2">{row.date}</td>
-              {/* {Object.values(row).map((value, i) => (
-                <td key={i} className="border px-4 py-2">{value}</td>
-              ))}
-              */}
-
-            
-
-              
-              
+              <td className="border px-4 py-2">{row.createdBy}</td>
+              <td className="border px-4 py-2">{row.createdDate}</td>
             </tr>
           ))}
         </tbody>
@@ -66,6 +53,5 @@ const Table = ({data,onRowClick }) => {
     </div>
   );
 };
- 
+
 export default Table;
- 
