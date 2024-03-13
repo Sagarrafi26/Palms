@@ -1,5 +1,5 @@
 const Constants = {
-  COMPANY_MASTER: "Company Master",
+  COMPANY_MASTER: "City Master",
   COMPANY_NAME: "City Name",
   ACTIVE_STATUS: "Active Status",
   ADD_PAGE:" ADD COMPANY DETAILS |#COMPANY SL NO:1",

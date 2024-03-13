@@ -9,7 +9,7 @@ export const Addpage = () => {
   const [stateId, setStateId] = useState("");
 
   const navigate = useNavigate();
-
+ 
   const handleSave = async () => {
   
     // Prepare the data to send to the backend
@@ -17,6 +17,7 @@ export const Addpage = () => {
       cityName: cityName,
       cityCode: cityCode,
       stateId: stateId,
+      
     };
     console.log(newData);
     try {
@@ -27,7 +28,9 @@ export const Addpage = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(newData),
+        
       });
+      
 
       if (response.ok) {
         navigate("/");
