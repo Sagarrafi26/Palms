@@ -15,7 +15,7 @@ const EditPage = () => {
     stateId: "",
   });
 
-
+  const [stateIdError, setStateIdError] = useState("");
   useEffect(() => {
     if (location.state && location.state.row) {
       setCompanyData({
@@ -31,11 +31,22 @@ const EditPage = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setCompanyData((prevState) => ({ ...prevState, [name]: value }));
+    if (name === "stateId" && parseInt(value) > 248) {
+        setStateIdError("State ID is limited to 248.");
+      } else {
+        setStateIdError("");
+      }
   };
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (stateIdError) {
+        console.error("State ID error:", stateIdError);
+        return;
+      }
+      
     try {
       console.log(companyData);
       const response = await fetch("http://localhost:8081/update", {
@@ -97,6 +108,8 @@ const EditPage = () => {
               onChange={handleInputChange}
               className="mx-6  border-2 rounded-md px-5 py-0 flex"
             />
+             {stateIdError && (
+              <p className="text-red-500 text-sm mx-10">{stateIdError}</p>)}
           </label>
         </div>
       </div>

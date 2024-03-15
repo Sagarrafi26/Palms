@@ -47,7 +47,13 @@ app.delete('/delete',deleteCity);
 // Route Handlers
 async function getData(req, res) {
   try {
-    const result = await pool.request().query('select * from City');
+    const query = `
+      SELECT City.CityName, City.CityCode, State.StateName, City.CreatedDate
+      FROM City
+       JOIN State ON City.StateID = State.StateID
+       WHERE City.IsDeleted = 0;
+    `;
+    const result = await pool.request().query(query);
     res.json({ data: result.recordset });
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -98,12 +104,12 @@ async function updateCity(req, res) {
 
 
 async function deleteCity(req, res) {
-  const {cityId}=req.body;
+  const {cityName}=req.body;
 
   try {
     await pool.request()
-      .input('cityId', sql.Int, cityId)
-      .query('DELETE FROM City WHERE CityID = @cityId');
+      .input('cityName', sql.VarChar(255), cityName)
+      .query('UPDATE City SET IsDeleted = 1 WHERE CityName = @cityName');
 
     res.status(200).json({ success: true });
   } catch (error) {

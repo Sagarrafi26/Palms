@@ -7,11 +7,25 @@ export const Addpage = () => {
   const [cityName, setCityName] = useState("");
   const [cityCode, setCityCode] = useState("");
   const [stateId, setStateId] = useState("");
+  const [stateIdError, setStateIdError] = useState("");
+
 
   const navigate = useNavigate();
+  const handleStateIdChange = (value) => {
+    setStateId(value);
+    if (parseInt(value) > 248) {
+      setStateIdError("State ID is limited to 248.");
+    } else {
+      setStateIdError("");
+    }
+  };
  
   const handleSave = async () => {
-  
+    if (parseInt(stateId) > 248) {
+      setStateIdError("State ID is limited to 248 ");
+      return; // Prevent further execution
+    }
+           
     // Prepare the data to send to the backend
     const newData = {
       cityName: cityName,
@@ -77,10 +91,12 @@ export const Addpage = () => {
             <input
               type="text"
               value={stateId}
-              onChange={(e) => setStateId(e.target.value)}
+              onChange={(e) => handleStateIdChange(e.target.value)}
               className="mx-6 my-0  border-2 rounded-md px-5 py-0 flex"
             />
+            {stateIdError && <p className="text-red-500 text-sm mx-10">{stateIdError}</p>}
           </label>
+          
         </div>
       </div>
 

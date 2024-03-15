@@ -44,31 +44,33 @@ const Table = ({ data, onRowClick }) => {
         <thead>
           <tr>
             <th className="border px-4 py-2">Select</th>
-            <th className="border px-4 py-2">StateID</th>
-            {/* <th className="border px-4 py-2">CityID</th> */}
-            <th className="border px-4 py-2">CityName</th>
-            <th className="border px-4 py-2">CityCode</th>
-            {/* <th className="border px-4 py-2">CreatedBy</th> */}
-            <th className="border px-4 py-2">CreatedDate</th>
+            <th className="border px-4 py-2">State Name</th>
+          
+            <th className="border px-4 py-2">City Name</th>
+            <th className="border px-4 py-2">City Code</th>
+          
+            <th className="border px-4 py-2">Created Date</th>
+          
           </tr>
         </thead>
         <tbody>
           {data && data.map((row) => (
-            <tr key={row.cityId} className={selectedRow && selectedRow.cityId === row.cityId ? 'bg-blue-200' : ''} onClick={() => handleRowClick(row)}>
+            <tr key={row.cityName} className={selectedRow && selectedRow.cityName === row.cityName ? 'bg-blue-200' : ''} onClick={() => handleRowClick(row)}>
               <td className="border px-4 py-2">
                 <input
                   type="radio"
                   name="selectedRow"
-                  checked={selectedRow && selectedRow.cityId === row.cityId}
+                  checked={selectedRow && selectedRow.cityName === row.cityName}
                   onChange={() => {}}
                 />
               </td>
-              <td className="border px-4 py-2 text-center">{row.stateId}</td>
-              {/* <td className="border px-4 py-2">{row.cityId}</td> */}
+              <td className="border px-4 py-2 text-center">{row.stateName}</td>
+             
               <td className="border px-4 py-2 text-center">{row.cityName}</td>
               <td className="border px-4 py-2 text-center">{row.cityCode}</td>
-              {/* <td className="border px-4 py-2">{row.createdBy}</td> */}
+             
               <td className="border px-4 py-2 text-center">{formatISODate(row.createdDate)}</td>
+              
             </tr>
           ))}
         </tbody>

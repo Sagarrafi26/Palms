@@ -25,7 +25,8 @@ const Home = () => {
           cityName: item.CityName,
           cityCode: item.CityCode,
           createdBy: item.CreatedBy,
-          createdDate: item.CreatedDate
+          createdDate: item.CreatedDate,
+          stateName:item.StateName
         }));
 
         // Update state with transformed data
@@ -69,12 +70,15 @@ const Home = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ cityId: selectedRow.cityId })
+        body: JSON.stringify({ cityName: selectedRow.cityName })
       });
       // Remove the deleted row from the state
-      setCompanyData(companyData.filter(city => city.cityId !== selectedRow.cityId));
+      setCompanyData(companyData.filter(city => city.cityName !== selectedRow.cityName));
       // Clear the selected row state
-      setSelectedRow([]);
+       setSelectedRow([]);
+      window.location.reload();
+   
+    
     } catch (error) {
       console.error('Error deleting city:', error);
     }
